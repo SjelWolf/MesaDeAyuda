@@ -1,0 +1,75 @@
+header{
+  width:100%;
+  background: rgba(0,0,0,0.9);
+  height: 70px;
+}
+.logo-header img{
+  width: 5%;
+  height: 70px;
+  position: absolute;
+  border-radius: 5px;
+  border: 5px solid rgb(69, 164, 205);
+
+}
+.box-nav{
+  width: 90%;
+  height: 70px;
+  margin: auto;
+
+}
+.logo{
+  position: relative;
+  width; 30%;
+  height: 70px;
+  float: left;
+  padding-top: 10px;
+  box-sizing: border-box;
+  left: 10%;
+}
+.logo p a:hover{
+  color: #fff;
+}
+.logo p a{
+  color: rgb(69, 164, 205);
+
+  font-size: 40px;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: monospace;
+}
+.nav{
+  top: 0;
+  margin: 0;
+  position: sticky;
+  width: 80%;
+  height: 70px;
+  float: left;
+  text-align: center;
+  padding-top: 24px;
+  box-sizing: border-box;
+}
+.nav ul li{
+  display: inline;
+
+}
+.nav ul li a{
+  color: #fff;
+  font-size: 18px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-family: monospace;
+  padding: 16px 24px;
+  box-sizing: border-box;
+}
+.nav ul li a:hover{
+  color: rgb(69, 164, 205);
+  background: #fff;
+}
+/*login contenedor*/
+.nav ul li .signup-btn{
+  position: absolute;
+  left: 90%;
+  top: 10px;
+}
