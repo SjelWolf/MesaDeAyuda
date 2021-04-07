@@ -3,9 +3,12 @@ header{
   background: rgba(0,0,0,0.9);
   height: 70px;
 }
+.logo-header{
+  padding-top: 4px;
+}
 .logo-header img{
-  width: 5%;
-  height: 70px;
+  width: 3.8%;
+  height: 60px;
   position: absolute;
   border-radius: 5px;
   border: 5px solid rgb(69, 164, 205);
@@ -15,7 +18,7 @@ header{
   width: 90%;
   height: 70px;
   margin: auto;
-
+  position: sticky;
 }
 .logo{
   position: relative;
@@ -40,7 +43,7 @@ header{
 .nav{
   top: 0;
   margin: 0;
-  position: sticky;
+  position: relative;
   width: 80%;
   height: 70px;
   float: left;
