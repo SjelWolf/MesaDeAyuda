@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <?php
 //inclusion de todos los controles,de los modelos que se usaran para el uso de los metodos.
-include '../Control/ControlCargos.php';
-include '../Modelo/Cargos.php';
-include '../Control/ControlConexion.php';
+include '../control/ControlCargos.php';
+include '../modelo/Cargos.php';
+include '../control/ControlConexion.php';
 // En esta parte se instancia la clase area y se crea el objeto tipo empleado llamado objCargo1 y se usa el metodo
 //  lista que devuelve una matriz de objetos tipo area y se guarda en una Matriz de area
 $objCargo = new Cargos('', '');
@@ -13,8 +13,8 @@ $objCargo1;  //se declara una variable llamada objCargo
 if (isset($_POST['accion'])) {
     $accion = $_POST['accion'];
 //se guarda en una variable llamada accion el valor que se trae de los botones mediante el metodo POST
-    echo '<h1> <center> <p style=" font-size: 45px;font-family:Comic Sans MS" > La Opción que se ha elegido es:  ' . $accion . '</p></center></h1>';
-//echo'<p style=" font-size: 45px;font-family:Britannic" ></p>';
+    echo '<h1><p> La Opción que se ha elegido es:  ' . $accion . '</p></h1>';
+
 } else {
     $accion = null;
 }
@@ -24,14 +24,14 @@ $NombreCargo = isset($_POST['txtnombrecargo']) ? $_POST['txtnombrecargo'] : null
 switch ($accion) {// declaración de una Estructura Switch para manejar las diferentes opciones
 
     case 'Crear':
-        // if(isset($_POST['txtidarea']) && $_POST['txtidarea']!=''){
+
         $objCargo= new Cargos($idcargo, $NombreCargo);//Se instancia la clase areas y se declara un objeto de tipo areas y se crea un area mediante el constructor
         $objControlCargo = new ControlCargos($objCargo);//se instancia la clase control area y se crea un objeto de tipo control area
         $inserto = $objControlCargo->guardar(); //en la variable inserto se guarda el resultado del query, ya sea falso o verdadero y se usará para mostrar mensajes emergentes
         //que hablarán del estado del query
         if ($inserto) {
             echo '<script> alert("Registro Completado con éxito1")</script>';
-            header('Refresh: 1; URL=VistaCrudcargosAux.php'); //una vez completada la accion, esto recargará la pagina y se actualizará los registros que se estan mostrando en las tablas, los cuales se traen directamente 
+            header('Refresh: 1; URL=VistaCrudcargosAux.php'); //una vez completada la accion, esto recargará la pagina y se actualizará los registros que se estan mostrando en las tablas, los cuales se traen directamente
             //de la base dedatos
         } else {
             echo '<script> alert("El registro no se pudo guardar; Ya existe; no debe repetirse o los campos estan vacios")</script>';
@@ -86,7 +86,7 @@ switch ($accion) {// declaración de una Estructura Switch para manejar las dife
             $objControlCargo->borrar();
             echo '<script> alert("Se ha Eliminado con Exito el Registro asociado al codigo: ' . $CodigoAUX . ' Recuerde Refrescar la pagina para ver la actualización de la Base de Datos")</script>';
             echo '<script> alert("La página Web Se actualizará automaticamente ")</script>';
-            header('Refresh: 1; URL=VistaCrudcargosAux.php');  //una vez completada la accion, esto recargará la pagina y se actualizará los registros que se estan mostrando en las tablas, los cuales se traen directamente 
+            header('Refresh: 1; URL=VistaCrudcargosAux.php');  //una vez completada la accion, esto recargará la pagina y se actualizará los registros que se estan mostrando en las tablas, los cuales se traen directamente
             //de la base dedatos
         }
         //echo '<script> alert("Se ha Eliminado con Exito el Registro asociado al codigo: '.print_r($ExisteRegistro).' Recuerde Refrescar la pagina para ver la actualización de la Base de Datos")</script>';
@@ -122,59 +122,58 @@ switch ($accion) {// declaración de una Estructura Switch para manejar las dife
 ?>
 
 <html>
-
     <head>
         <meta charset="UTF-8">
-        <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/vistaCargos.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>C.R.U.D de Cargo</title>
+        <title>CRUD de Cargo</title>
     </head>
 
     <body>
-    <center> <H1 style=" font-style: bold; font-size: 65px;font-family:'Bradley Hand ITC'" >C.R.U.D de Cargo</H1> </center>
-    <div class="container">
-        <div class="table-wrapper">
-            <div class="table-title">
+      <header>
+        <div class="box-nav">
+          <a href="./index.php"><div class="logo-header"><img src="../img/logo_size.jpg"></div></a>
+          <section class="logo">
+            <p><a href="#">MesaAyuda</a></p>
+          </section>
+
+          <nav class="nav">
+            <ul>
+              <li><a href="../index.php">HOME</a></li>
+              <li><a href="../quienessomos.php">Quienes somos</a></li>
+              <li><a href="../gestion.html">Gestiones Mesa de Ayuda</a></li>
+              <li><a href="../integrantes.php">INTEGRANTES</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <main>
+        <div class="container-main">
+          <h1>CRUD de Cargo</h1>
+            <form action="VistaCrudCargosAux.php" method="POST">
+
                 <div class="row">
-                    <div class="col-sm-8"><center><h2 style=" font-size: 45px;font-family:'Maiandra GD'" >Ingreso de Datos Inicial</h2></center></div>
-                    <br>
-                    <br>
-                    <div class="col-sm-8"><center><h2 style=" font-size: 25px;font-family:'Maiandra GD'" >Nota: Para modificar datos, primero:<br>
-                               ingrese el codigo y luego de consultar para traer todos los datos actuales <br>
-                                luego ingrese los datos nuevos</h2></center></div>
-                    <div class="col-sm-8"><center><h2 style=" font-size: 25px;font-family:'Maiandra GD'" >Nota: Si desea ingresar un cargo nuevo,:<br>
-                                no es necesario que ingrese un codigo, el codigo solo se usa para eliminar, modificar o consultar. <br>
-                          </h2></center></div>
-                    <div class="col-sm-4">
-                        <a href="../index.php" class="btn btn-secondary add-new"><i class="fa fa-arrow-left"></i> Volver al indice</a>
-                    </div>
+                        <div class="col-md-6">
+                            <label><p>Código del Cargo</p></label>
+                            <input type="number" name="txtcodigocargo" id="codigo" class='form-control' maxlength="10" value="<?php echo'' .$idcargo.'' ?>">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label><p>Nombre Del Cargo:</p></label>
+                            <input type="text" name="txtnombrecargo" id="nombre" class='form-control' maxlength="50" value="<?php echo'' .$NombreCargo.'' ?>">
+                        </div>
+
+                        <button type="submit" class="btn" name="accion" value="Crear" >Crear Datos Cargo</button>
+                        <button type="submit" class="btn" name="accion" value="Consultar">Consultar Datos Cargo</button>
+                        <button type="submit" class="btn" name="accion" value="Eliminar">Eliminar Cargo</button>
+                        <button type="submit" class="btn" name="accion" value="Actualizar">Actualizar Datos Cargo</button>
+
                 </div>
-            </div>
-        </div> 
-        <form action="VistaCrudCargosAux.php" method="POST">
+            </form>
+        </div>
 
-            <div class="row">
-                    <div class="col-md-6">
-                        <label><p style=" font-size: 45px;font-family:'Maiandra GD'" >Código del Cargo</p></label>
-                        <input type="number" name="txtcodigocargo" id="codigo" class='form-control' maxlength="10" value="<?php echo'' .$idcargo.'' ?>">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label><p style=" font-size: 45px;font-family:'Maiandra GD'" >Nombre Del Cargo:</p></label>
-                        <input type="text" name="txtnombrecargo" id="nombre" class='form-control' maxlength="50" value="<?php echo'' .$NombreCargo.'' ?>">
-                    </div>
-   <br> <br>
-                <br>
-                <center>
-                     <br>
-                    <button type="submit" class="btn btn-success" name="accion" value="Crear" >Crear Datos Cargo</button>
-                    <button type="submit" class="btn btn-info" name="accion" value="Consultar">Consultar Datos Cargo</button>
-                    <button type="submit" class="btn btn-danger" name="accion" value="Eliminar">Eliminar Cargo</button>
-                    <button type="submit" class="btn btn-primary" name="accion" value="Actualizar">Actualizar Datos Cargo</button>
-                </center>
-            </div>
-        </form>
-    </div>
+      </main>
 
 </body>
 </html>

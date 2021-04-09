@@ -21,7 +21,6 @@ body{
 
 main{
   width: 100%;
-  height: auto;
   position: relative;
   padding: 10px 20px;
   text-align: justify;
@@ -55,6 +54,7 @@ main{
   position: absolute;
   top: 5px;
   width: 60%;
+  height: 300px;
   color: white;
   background: rgba(0,0,0,0.9);
 }
@@ -92,8 +92,11 @@ main .menucrud .btn:hover{
   right: 0;
   top: 0;
 }
+.sec3{
+  padding: 50px 0px 0px 0px;
+}
 .sec4{
   position: absolute;
   right: 0;
-
+  top: 130px;
 }

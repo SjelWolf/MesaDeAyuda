@@ -12,6 +12,7 @@ footer {
   font-family: monospace;
   padding-top: 40px;
   color: #fff;
+  /* bottom: 0; */
 }
 
 .footer-content {

@@ -38,7 +38,7 @@
 
         <div class="vis sec3">
           <p>Accede aqui para poder realizar un requerimiento o insidencia</p>
-          <a href="vista/VistaRequirimiento.php" class="btn">
+          <a href="vista/VistaRequerimientosSinAsignar.php" class="btn">
             Realiza un Requerimiento
           </a>
         </div>

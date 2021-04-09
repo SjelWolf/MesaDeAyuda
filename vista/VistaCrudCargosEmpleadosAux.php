@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <?php
 //inclusion de Algunas clases de Control y Modelo para la creacion de una tabla con todos los registros de Area
-include '../Control/ControlCargos.php';
-include '../Modelo/Cargos.php';
-include '../Control/ControlConexion.php';
-include '../Control/ControlEmpleados.php';
-include '../Modelo/Empleados.php';
-include '../Modelo/CargoEmpleados.php';
-include '../Control/ControlCargoEmpleados.php';
+include '../control/ControlCargos.php';
+include '../modelo/Cargos.php';
+include '../control/ControlConexion.php';
+include '../control/ControlEmpleados.php';
+include '../modelo/Empleados.php';
+include '../modelo/CargoEmpleados.php';
+include '../control/ControlCargoEmpleados.php';
 
 $objEmpleados= new Empleados('', '', '','', '','' ,'','' ,'' ,'' ,'' );
 $objControlEmpleados= new ControlEmpleados($objEmpleados);
@@ -30,10 +30,10 @@ $cargo = isset($_POST['txtcargo']) ? $_POST['txtcargo'] : 'NULL';
 $fechafin = isset($_POST['txtfechafin']) ? $_POST['txtfechafin'] : 'NULL';
 $fechainicio = isset($_POST['txtfechainicio']) ? $_POST['txtfechainicio'] : 'NULL';
 print_r($_POST);
- 
-                        
-                        
-                        
+
+
+
+
 switch ($accion) {// declaración de una Estructura Switch para manejar las diferentes opciones
 
     case 'Crear':
@@ -44,7 +44,7 @@ switch ($accion) {// declaración de una Estructura Switch para manejar las dife
         //que hablarán del estado del query
         if ($inserto) {
             echo '<script> alert("Registro Completado con éxito1")</script>';
-            header('Refresh: 1; URL=VistaCrudCargosEmpleadosAux.php'); //una vez completada la accion, esto recargará la pagina y se actualizará los registros que se estan mostrando en las tablas, los cuales se traen directamente 
+            header('Refresh: 1; URL=VistaCrudCargosEmpleadosAux.php'); //una vez completada la accion, esto recargará la pagina y se actualizará los registros que se estan mostrando en las tablas, los cuales se traen directamente
             //de la base dedatos
         } else {
             echo '<script> alert("El registro no se pudo guardar; Ya existe; no debe repetirse o los campos estan vacios")</script>';
@@ -117,21 +117,21 @@ switch ($accion) {// declaración de una Estructura Switch para manejar las dife
         $ObjControlCargoEmpleados = new ControlCargoEmpleados($objCargoEmpleado);
         $CodigoAUX = 'Codigo Empleado: '.$objCargoEmpleado->getFkCargo().' Empleado Codigo: '.$objCargoEmpleado->getFkEmple();
         $ExisteRegistro = $ObjControlCargoEmpleados->consultarAUX2();
-  
+
         if ($ExisteRegistro) {//Si el registro existe, Ejecuta el eliminar,
             //en caso contrario notifica que el registro no existe
             $ObjControlCargoEmpleados->borrar();
             echo '<script> alert("Se ha Eliminado con Exito el Registro asociado al codigo: ' . $CodigoAUX . ' Recuerde Refrescar la pagina para ver la actualización de la Base de Datos")</script>';
             echo '<script> alert("La página Web Se actualizará automaticamente ")</script>';
-            header('Refresh: 1; URL=VistaCrudCargosEmpleadosAux.php');  //una vez completada la accion, esto recargará la pagina y se actualizará los registros que se estan mostrando en las tablas, los cuales se traen directamente 
+            header('Refresh: 1; URL=VistaCrudCargosEmpleadosAux.php');  //una vez completada la accion, esto recargará la pagina y se actualizará los registros que se estan mostrando en las tablas, los cuales se traen directamente
             //de la base de datos
         }
-     
+
         else {
             echo '<script> alert("El registro Asociado Al codigo : ' . $CodigoAUX . ' No Existe. \n Vuelva a Intentar con Otro Codigo \n Recuerde no Dejar El Codigo Vacío ")</script>';
         }
         $accion = null;
-      
+
         break;
     case 'Actualizar':
          //Creacion e instanciacion de objetos cargoempleado usando la clase cargoempleado, la clase control cargoempleado y uso de metodo auxiliar que verifica que el registro sí exista
@@ -155,136 +155,138 @@ switch ($accion) {// declaración de una Estructura Switch para manejar las dife
         break;
 }
 ?>
-
 <html>
-
     <head>
         <meta charset="UTF-8">
-        <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/vistaCargos.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>C.R.U.D de Cargos Por Empleado</title>
     </head>
 
     <body>
-    <center> <H1 style=" font-style: bold; font-size: 65px;font-family:'Bradley Hand ITC'" >C.R.U.D De cargo por empleado</H1> </center>
-    <div class="container">
-        <div class="table-wrapper">
-            <div class="table-title">
+      <header>
+        <div class="box-nav">
+          <a href="./index.php"><div class="logo-header"><img src="../img/logo_size.jpg"></div></a>
+          <section class="logo">
+            <p><a href="#">MesaAyuda</a></p>
+          </section>
+
+          <nav class="nav">
+            <ul>
+              <li><a href="../index.php">HOME</a></li>
+              <li><a href="../quienessomos.php">Quienes somos</a></li>
+              <li><a href="../gestion.html">Gestiones Mesa de Ayuda</a></li>
+              <li><a href="../integrantes.php">INTEGRANTES</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <main>
+
+        <div class="container-main">
+          <h1>CRUD De cargo por empleado</h1>
+            <form action="VistaCrudCargosEmpleadosAux.php" method="POST">
+
                 <div class="row">
-                    <div class="col-sm-8"><center><h2 style=" font-size: 45px;font-family:'Maiandra GD'" >Ingreso de Datos Inicial</h2></center></div>
-                    <br>
-                    <br>
-                    <div class="col-sm-8"><center><h2 style=" font-size: 25px;font-family:'Maiandra GD'" >Nota: Si desea Consultar los cargos que tiene un empleado<br>
-                                solo seleccione el nombre del empleado <br>
-                                 Si desea modificar un registro en particular seleccione empleado y cargo para modificar su fecha de inicio y fin
-                                 Si desea eliminar un registro, seleccione empleado y cargo que desee eliminar</h2></center></div>
-                    <div class="col-sm-4">
-                        <a href="../index.php" class="btn btn-secondary add-new"><i class="fa fa-arrow-left"></i> Volver al indice</a>
-                    </div>
-                </div>
-            </div>
-        </div> 
-        <form action="VistaCrudCargosEmpleadosAux.php" method="POST">
+                        <div class="col-md-6">
+                            <label><p>Fecha Inicio</p></label>
+                            <input type="date" name="txtfechainicio" id="codigo" class='form-control' maxlength="10">
+                        </div>
 
-            <div class="row">
-                    <div class="col-md-6">
-                        <label><p style=" font-size: 45px;font-family:'Maiandra GD'" >Fecha Inicio</p></label>
-                        <input type="date" name="txtfechainicio" id="codigo" class='form-control' maxlength="10">
-                    </div>
+                        <div class="col-md-6">
+                            <label><p>Fecha Finalización:</p></label>
+                            <input type="date" name="txtfechafin" id="nombre" class='form-control' maxlength="50">
+                        </div>
+                         <div class="col-md-6">
+                            <label><p>Empleado Para Cargo:</p></label>
+                             <select name="txtEmpleado" class="form-select form-select-lg mb-4"  aria-label=".form-select-lg example">
+                            <?php foreach ($MatrizEmpleados as $Empleados){
+                            //Creacion de un select con todos los empleados registrados en la base de datos, se usa nada más su nombre y codigo.
+                            ?>
 
-                    <div class="col-md-6">
-                        <label><p style=" font-size: 45px;font-family:'Maiandra GD'" >Fecha Finalización:</p></label>
-                        <input type="date" name="txtfechafin" id="nombre" class='form-control' maxlength="50">
-                    </div>
+
+                                <?php
+                                echo '<option value='.$Empleados->getIdEmpleado().'>'.$Empleados->getNombre().'</option>';
+                            ?>
+
+                               <?php
+                            }?>
+                                 <option value="NULL" selected="selected">Encargado Sin Asignar</option>
+                            </select>
+                            <!--<input type="text" name="txtnombrearea" id="nombre" class='form-control' maxlength="50">-->
+                        </div>
+                           <div class="col-md-6">
+                            <label><p style=">Cargo a Asignar:</p></label>
+                             <select name="txtcargo" class="form-select form-select-lg mb-4"  aria-label=".form-select-lg example">
+                            <?php foreach ($MatrizCargos as $Cargo){
+                                //Creacion de un select con todos los cargos registrados en la base de datos, se usa nada más su nombre de cargo y idcargo.
+                            ?>
+
+
+                                <?php
+                                echo '<option value='.$Cargo->getIdCargo().'>'.$Cargo->getNombreCargo().'</option>';
+                            ?>
+
+                               <?php
+                            }?>
+                                 <option value="NULL" selected="selected">Cargo sin Asignar</option>
+                            </select>
+                            <!--<input type="text" name="txtnombrearea" id="nombre" class='form-control' maxlength="50">-->
+                        </div>
                      <div class="col-md-6">
-                        <label><p style=" font-size: 45px;font-family:'Maiandra GD'" >Empleado Para Cargo:</p></label>
-                         <select name="txtEmpleado" class="form-select form-select-lg mb-4"  aria-label=".form-select-lg example">
-                        <?php foreach ($MatrizEmpleados as $Empleados){
-                        //Creacion de un select con todos los empleados registrados en la base de datos, se usa nada más su nombre y codigo.    
-                        ?>
-                        
-                       
-                            <?php
-                            echo '<option value='.$Empleados->getIdEmpleado().'>'.$Empleados->getNombre().'</option>';
-                        ?>
-                            
-                           <?php
-                        }?>
-                             <option value="NULL" selected="selected">Encargado Sin Asignar</option>
-                        </select>
-                        <!--<input type="text" name="txtnombrearea" id="nombre" class='form-control' maxlength="50">-->
-                    </div>
-                       <div class="col-md-6">
-                        <label><p style=" font-size: 45px;font-family:'Maiandra GD'" >Cargo a Asignar:</p></label>
-                         <select name="txtcargo" class="form-select form-select-lg mb-4"  aria-label=".form-select-lg example">
-                        <?php foreach ($MatrizCargos as $Cargo){
-                            //Creacion de un select con todos los cargos registrados en la base de datos, se usa nada más su nombre de cargo y idcargo.    
-                        ?>
-                        
-                       
-                            <?php
-                            echo '<option value='.$Cargo->getIdCargo().'>'.$Cargo->getNombreCargo().'</option>';
-                        ?>
-                            
-                           <?php
-                        }?>
-                             <option value="NULL" selected="selected">Cargo sin Asignar</option> 
-                        </select>
-                        <!--<input type="text" name="txtnombrearea" id="nombre" class='form-control' maxlength="50">-->
-                    </div>
-                 <div class="col-md-6">
-                    <label><p style=" font-size: 45px;font-family:'Britannic'" >Vista Encargado:</p></label>
-                    <?php
-                    //===========================>
-                    // esta parte se usa con el fin de que al momento de hacer la consulta,
-                    //verifique cuando traga de la base de datos si esta vacio el nombre y el cargo
-                    //en caso contrario se le asigna a las variables Empleado sin asignar y cargo sin asignar en caso de que el empleado no tenga un cargo asignado
-                    $Encargado;
-               $objEmpleado2=new Empleados($idempleado, '', '', '', '', '', '', '', '', '', '');
-                $objControlempleado2= new ControlEmpleados($objEmpleado2);
-                $objControlempleado2->consultar();
-                $Encargado=$objEmpleado2->getNombre();
-              
-               
-                $objcargos2=new Cargos($cargo,'');
-                $objControlCargo2= new ControlCargos($objcargos2);
-                $objControlCargo2->consultar();
-                $cargo2=$objcargos2->getNombreCargo();
-               
-                    if ((empty($Encargado))){
-                        //echo '<p> Junior </p>' && empty($Cargo);
-                        $Encargado='Empleado sin Asignar';
-                       
-                    }
-                    if(empty($cargo2))
-                    {
-                         $cargo2='Cargo sin Asignar';
-                    }
-                   // ==========================>FIN
-                    ?>
-                    
-                    <input type="text" name="txtEmpleado1" id="nombres" class='form-control' maxlength="50" value="<?php echo'' .$Encargado.'' ?>" disabled="true" >
-                </div>
-                <div class="col-md-6">
-                    <label><p style=" font-size: 45px;font-family:'Britannic'" >Visualización Cargo:</p></label>
-                    <input type="text" name="txtcargo1" id="nombres" class='form-control' maxlength="50" value=" <?php echo'' .$cargo2.'' ?>" disabled="true" >
-                </div>
+                        <label><p>Vista Encargado:</p></label>
+                        <?php
+                        //===========================>
+                        // esta parte se usa con el fin de que al momento de hacer la consulta,
+                        //verifique cuando traga de la base de datos si esta vacio el nombre y el cargo
+                        //en caso contrario se le asigna a las variables Empleado sin asignar y cargo sin asignar en caso de que el empleado no tenga un cargo asignado
+                        $Encargado;
+                   $objEmpleado2=new Empleados($idempleado, '', '', '', '', '', '', '', '', '', '');
+                    $objControlempleado2= new ControlEmpleados($objEmpleado2);
+                    $objControlempleado2->consultar();
+                    $Encargado=$objEmpleado2->getNombre();
 
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <center>
-                    <button type="submit" class="btn btn-success" name="accion" value="Crear" >Crear Datos Cargo Empleado</button>
-                    <button type="submit" class="btn btn-info" name="accion" value="Consultar">Consultar Datos Cargo Empleado</button>
-                    <button type="submit" class="btn btn-danger" name="accion" value="Eliminar">Eliminar Cargo Empleado</button>
-                    <button type="submit" class="btn btn-primary" name="accion" value="Actualizar">Actualizar Datos Cargo Empleado</button>
-                </center>
-            </div>
-        </form>
-    </div>
+
+                    $objcargos2=new Cargos($cargo,'');
+                    $objControlCargo2= new ControlCargos($objcargos2);
+                    $objControlCargo2->consultar();
+                    $cargo2=$objcargos2->getNombreCargo();
+
+                        if ((empty($Encargado))){
+                            //echo '<p> Junior </p>' && empty($Cargo);
+                            $Encargado='Empleado sin Asignar';
+
+                        }
+                        if(empty($cargo2))
+                        {
+                             $cargo2='Cargo sin Asignar';
+                        }
+                       // ==========================>FIN
+                        ?>
+
+                        <input type="text" name="txtEmpleado1" id="nombres" class='form-control' maxlength="50" value="<?php echo'' .$Encargado.'' ?>" disabled="true" >
+                    </div>
+                    <div class="col-md-6">
+                        <label><p>Visualización Cargo:</p></label>
+                        <input type="text" name="txtcargo1" id="nombres" class='form-control' maxlength="50" value=" <?php echo'' .$cargo2.'' ?>" disabled="true" >
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <center>
+                        <button type="submit" class="btn" name="accion" value="Crear" >Crear Datos Cargo Empleado</button>
+                        <button type="submit" class="btn" name="accion" value="Consultar">Consultar Datos Cargo Empleado</button>
+                        <button type="submit" class="btn" name="accion" value="Eliminar">Eliminar Cargo Empleado</button>
+                        <button type="submit" class="btn" name="accion" value="Actualizar">Actualizar Datos Cargo Empleado</button>
+                    </center>
+                </div>
+            </form>
+      </main>
 
 </body>
 </html>
